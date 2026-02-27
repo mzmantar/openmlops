@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: mlflow
+      POSTGRES_DB: mlflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.12.1
+    container_name: mlflow
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri postgresql://mlflow:mlflow@postgres:5432/mlflow
+      --default-artifact-root /mlflow_artifacts
+    volumes:
+      - mlflow_artifacts:/mlflow_artifacts
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: app
+    depends_on:
+      - mlflow
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      SIMULATE_DRIFT: "0"
+    volumes:
+      - ..:/workspace
+    working_dir: /workspace
+    command: bash -lc "sleep infinity"
+
+volumes:
+  pg_data:
+  mlflow_artifacts:
