@@ -1,0 +1,6 @@
+[core]
+    remote = minio
+['remote "minio"']
+    url = s3://dvc
+    endpointurl = http://minio:9000
+    use_ssl = false

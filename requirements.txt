@@ -1,6 +1,9 @@
-zenml==0.67.0
+zenml[server]==0.93.3
 mlflow==2.12.1
 dvc==3.50.1
+dvc-s3==3.2.0
+pathspec==0.12.1
+boto3==1.42.55
 evidently==0.4.33
 
 torch==2.3.1
@@ -10,4 +13,4 @@ numpy==1.26.4
 pandas==2.2.2
 scikit-learn==1.5.1
 matplotlib==3.9.2
-pyarrow==16.1.0
+pyarrow==15.0.2
