@@ -2,6 +2,10 @@
 
 Pipeline MLOps de bout en bout pour entraîner, évaluer, versionner, monitorer et re-déclencher un entraînement d’un modèle CNN sur CIFAR-10, en s’appuyant sur ZenML, MLflow, DVC et Evidently.
 
+## 🎥 Démonstration vidéo
+
+- Lien de la démo: [Voir la vidéo](https://drive.google.com/file/d/19AHxkMH7kOTWgu4__hy3lFixJjV5zxiP/view?usp=sharing)
+
 ## 1) Objectif du projet
 
 Ce projet démontre un workflow MLOps complet orienté production:

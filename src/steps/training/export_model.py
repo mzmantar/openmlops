@@ -4,14 +4,14 @@ import torch
 import mlflow
 from src.utils.settings import ARTIFACTS_DIR, MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME
 
-@step
-def export_model(model: torch.nn.Module) -> str:
+@step(enable_cache=False)
+def export_model(trained_model: torch.nn.Module) -> str:
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
     export_path = os.path.join(ARTIFACTS_DIR, "model_torchscript.pt")
 
-    model.eval()
+    trained_model.eval()
     example = torch.randn(1, 3, 32, 32)
-    traced = torch.jit.trace(model.cpu(), example)
+    traced = torch.jit.trace(trained_model.cpu(), example)
     traced.save(export_path)
 
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
